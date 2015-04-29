@@ -1,0 +1,11 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Bouquet</title><description>It's like... a floral bouquet of the future that is always fresh.</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 29 Apr 2015 03:48:35 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Welcome! I'm Hosting with Ghost on GitHub Pages!!</title><description>&lt;h3 id="helloworld"&gt;Hello, world!&lt;/h3&gt;
+
+&lt;h5 id="cmovalacosita"&gt;¿Cómo va la cosita?&lt;/h5&gt;
+
+&lt;p&gt;You're very welcome to join me as I blog about software and the world around me. I hope you'll find this material interesting, helpful, or perhaps insightful. I will try to the best of my ability to give credit where credit is due. For starters, this site is in part made possible by:&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href="https://ghost.org/"&gt;Ghost&lt;/a&gt; Blogging Platform - a super simple, minimal text editor that can be  hosted on GitHub Pages. I leveraged &lt;a href="https://github.com/axitkhurana/buster"&gt;Buster&lt;/a&gt; to create a static instance of Ghost, which I run locally to edit my page. This &lt;a href="http://stackoverflow.com/questions/23375422/how-to-setup-github-pages-to-redirect-dns-requests-from-subdomain-e-g-www-to"&gt;Stack Overflow post&lt;/a&gt; gave me the resources to iron out my redirecting woes in no time. &lt;/p&gt;
+
+&lt;p&gt;If you have or develop questions while reading my posts, simply reach out to me - I really do appreciate every bit of feedback. &lt;/p&gt;
+
+&lt;p&gt;Sean&lt;/p&gt;</description><link>http://localhost:2368/welcome-to-ghost/</link><guid isPermaLink="false">60811cb7-baeb-4312-9fbc-8aa8d6932de3</guid><dc:creator>Sean Conroy</dc:creator><pubDate>Tue, 24 Mar 2015 03:35:48 GMT</pubDate></item></channel></rss>
