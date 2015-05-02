@@ -1,0 +1,192 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Angular Binding Issues</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=59f35c9d0c">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="index.html">
+    
+    <meta property="og:site_name" content="Code Bouquet">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Angular Binding Issues">
+    <meta property="og:description" content="Angular has some issues - though probably not of the fundamental sort. They're not the kind of issues that might convince you to leave it in reckless abandon, though they might eat into your lunch hour (like they did to...">
+    <meta property="og:url" content="http://localhost:2368/angular-sometimes-doesnt-bind-well/">
+    <meta property="article:published_time" content="2015-05-02T06:22:56.637Z">
+    <meta property="article:modified_time" content="2015-05-02T06:22:56.636Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Angular Binding Issues">
+    <meta name="twitter:description" content="Angular has some issues - though probably not of the fundamental sort. They're not the kind of issues that might convince you to leave it in reckless abandon, though they might eat into your lunch hour (like they did to...">
+    <meta name="twitter:url" content="http://localhost:2368/angular-sometimes-doesnt-bind-well/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Bouquet",
+    "author": {
+        "@type": "Person",
+        "name": "Sean Conroy",
+        "image": "http://localhost:2368/content/images/2015/04/36b8d7b-1.jpg",
+        "url": "http://localhost:2368/author/sean",
+        "sameAs": null
+    },
+    "headline": "Angular Binding Issues",
+    "url": "http://localhost:2368/angular-sometimes-doesnt-bind-well/",
+    "datePublished": "2015-05-02T06:22:56.637Z",
+    "dateModified": "2015-05-02T06:22:56.636Z",
+    "description": "Angular has some issues - though probably not of the fundamental sort. They&#x27;re not the kind of issues that might convince you to leave it in reckless abandon, though they might eat into your lunch hour (like they did to..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Bouquet" href="../rss/index.html">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="../">Home</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button" href="index.html#"><span class="burger">☰</span><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Angular Binding Issues</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-05-01">01 May 2015</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Angular has some issues - though probably not of the fundamental sort. They're not the kind of issues that might convince you to leave it in reckless abandon, though they might eat into your lunch hour (like they did to my own :o ).. unless, that is, you've encountered the following issue and you're reading this blog! </p>
+
+<p>The other day I was building a view in an application that required a user interface with form validation: I wanted to allow users to submit information, but only particular information (the right information, character limits, etc.) accompanied by an image. Angular makes it super simple to carry out form validation. After reviewing a mighty <a href="https://scotch.io/tutorials/angularjs-form-validation">tutorial on scotch.io</a>, I took to my text editor.</p>
+
+<p>In the form, two-way data binding worked great on all of the text inputs/textarea, but not so well on the file input - where images were to be attached for uploading. A cursory search revealed that others had the <a href="https://github.com/angular/angular.js/issues/1375">same</a> issue. I tried a <a href="http://stackoverflow.com/questions/16207202/required-attribute-not-working-with-file-input-in-angular-js">directive</a> that would detect when a file was uploaded and therefore validate the form:</p>
+
+<pre><code>app.directive('validFile', function () {
+  return {
+    require: 'ngModel',
+    link: function (scope, el, attrs, ngModel) {
+      ngModel.$render = function () {
+        ngModel.$setViewValue(el.val());
+      };
+      el.bind('change', function () {
+        scope.$apply(function () {
+          ngModel.$render();
+        });
+      });
+    }
+  };
+});
+</code></pre>
+
+<p>...but the same directive did not actually succeed in uploading that file: The back-end's attempt to parse the post request's data returned evidence of the void: cannot read ~ of undefined. </p>
+
+<p>My solution was to patch in a bit of jQuery, which worked swimmingly. In the controller, we created a new FormData object and appended the necessary information to it, substituting a jQuery selector for the item that we couldn't bind via angular:</p>
+
+<pre><code>...
+fd.append('file', $('.image')[0].files[0], 'image');
+fd.append('dish_name', $scope.dishname);
+...
+</code></pre>
+
+<p>This allowed us to both validate the form using the above directive and ensure that it was being appended to the FormData.</p>
+
+<pre><code>&lt;h4&gt;Upload Image:&lt;/h4&gt;
+&lt;input type="file" name="image" class="image" ng-model="file" valid-file required accept="image/*"&gt;&lt;/input&gt;
+&lt;p&gt;{{ reviewForm.image.$error.required &amp;&amp; ' - please upload an image file - ' || 'Looks good!'}}&lt;/p&gt;
+
+&lt;h4&gt;Dish Name:&lt;/h4&gt;
+&lt;textarea class="review-dishname" name="dishname" ng-model="dishname" ng-minlength="2" ng-required="true"&gt;&lt;/textarea&gt;
+&lt;p ng-show="reviewForm.dishname.$error.required &amp;&amp; !reviewForm.dishname.$pristine" class="help-block"&gt;Please enter the name of the dish you're reviewing.&lt;/p&gt;
+</code></pre>
+
+<p>Angular leverages jQuery to meet different ends, and I'm not sure why it doesn't do so in this instance. But I'm sure that it will be a likely new feature/patch come Angular 2.0 - due any month now. It makes perfect sense that the ng-model service should work for 'input type=file' and therefore permit two-way data binding, so that users can upload content seamlessly, and, for example, be made aware in real-time that their content has been uploaded. </p>
+
+<p>Sean</p>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/sean/" style="background-image: url(../content/images/2015/04/36b8d7b-1.jpg)"><span class="hidden">Sean Conroy's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/sean/">Sean Conroy</a></h4>
+
+                    <p>Read <a href="../author/sean/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Angular%20Binding%20Issues&amp;url=http://localhost:2368/angular-sometimes-doesnt-bind-well/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/angular-sometimes-doesnt-bind-well/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/angular-sometimes-doesnt-bind-well/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../">Code Bouquet</a> © 2015</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script src="../public/jquery.js?v=59f35c9d0c"></script>
+
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=59f35c9d0c"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=59f35c9d0c"></script>
+
+</body>
