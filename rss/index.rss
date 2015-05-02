@@ -1,4 +1,50 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Bouquet</title><description>It's like... a floral bouquet of the future that is always fresh.</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Wed, 29 Apr 2015 03:48:35 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Welcome! I'm Hosting with Ghost on GitHub Pages!!</title><description>&lt;h3 id="helloworld"&gt;Hello, world!&lt;/h3&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Bouquet</title><description>Code Bouquet</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Sat, 02 May 2015 06:28:06 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Angular Binding Issues</title><description>&lt;p&gt;Angular has some issues - though probably not of the fundamental sort. They're not the kind of issues that might convince you to leave it in reckless abandon, though they might eat into your lunch hour (like they did to my own :o ).. unless, that is, you've encountered the following issue and you're reading this blog! &lt;/p&gt;
+
+&lt;p&gt;The other day I was building a view in an application that required a user interface with form validation: I wanted to allow users to submit information, but only particular information (the right information, character limits, etc.) accompanied by an image. Angular makes it super simple to carry out form validation. After reviewing a mighty &lt;a href="https://scotch.io/tutorials/angularjs-form-validation"&gt;tutorial on scotch.io&lt;/a&gt;, I took to my text editor.&lt;/p&gt;
+
+&lt;p&gt;In the form, two-way data binding worked great on all of the text inputs/textarea, but not so well on the file input - where images were to be attached for uploading. A cursory search revealed that others had the &lt;a href="https://github.com/angular/angular.js/issues/1375"&gt;same&lt;/a&gt; issue. I tried a &lt;a href="http://stackoverflow.com/questions/16207202/required-attribute-not-working-with-file-input-in-angular-js"&gt;directive&lt;/a&gt; that would detect when a file was uploaded and therefore validate the form:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.directive('validFile', function () {
+  return {
+    require: 'ngModel',
+    link: function (scope, el, attrs, ngModel) {
+      ngModel.$render = function () {
+        ngModel.$setViewValue(el.val());
+      };
+      el.bind('change', function () {
+        scope.$apply(function () {
+          ngModel.$render();
+        });
+      });
+    }
+  };
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;...but the same directive did not actually succeed in uploading that file: The back-end's attempt to parse the post request's data returned evidence of the void: cannot read ~ of undefined. &lt;/p&gt;
+
+&lt;p&gt;My solution was to patch in a bit of jQuery, which worked swimmingly. In the controller, we created a new FormData object and appended the necessary information to it, substituting a jQuery selector for the item that we couldn't bind via angular:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+fd.append('file', $('.image')[0].files[0], 'image');
+fd.append('dish_name', $scope.dishname);
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This allowed us to both validate the form using the above directive and ensure that it was being appended to the FormData.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;h4&amp;gt;Upload Image:&amp;lt;/h4&amp;gt;
+&amp;lt;input type="file" name="image" class="image" ng-model="file" valid-file required accept="image/*"&amp;gt;&amp;lt;/input&amp;gt;
+&amp;lt;p&amp;gt;{{ reviewForm.image.$error.required &amp;amp;&amp;amp; ' - please upload an image file - ' || 'Looks good!'}}&amp;lt;/p&amp;gt;
+
+&amp;lt;h4&amp;gt;Dish Name:&amp;lt;/h4&amp;gt;
+&amp;lt;textarea class="review-dishname" name="dishname" ng-model="dishname" ng-minlength="2" ng-required="true"&amp;gt;&amp;lt;/textarea&amp;gt;
+&amp;lt;p ng-show="reviewForm.dishname.$error.required &amp;amp;&amp;amp; !reviewForm.dishname.$pristine" class="help-block"&amp;gt;Please enter the name of the dish you're reviewing.&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Angular leverages jQuery to meet different ends, and I'm not sure why it doesn't do so in this instance. But I'm sure that it will be a likely new feature/patch come Angular 2.0 - due any month now. It makes perfect sense that the ng-model service should work for 'input type=file' and therefore permit two-way data binding, so that users can upload content seamlessly, and, for example, be made aware in real-time that their content has been uploaded. &lt;/p&gt;
+
+&lt;p&gt;Sean&lt;/p&gt;</description><link>http://localhost:2368/angular-sometimes-doesnt-bind-well/</link><guid isPermaLink="false">e60f7b0a-f0f0-4d90-a75b-f7b42875102c</guid><dc:creator>Sean Conroy</dc:creator><pubDate>Sat, 02 May 2015 06:22:56 GMT</pubDate></item><item><title>Welcome! I'm Hosting with Ghost on GitHub Pages!!</title><description>&lt;h3 id="helloworld"&gt;Hello, world!&lt;/h3&gt;
 
 &lt;h5 id="cmovalacosita"&gt;¿Cómo va la cosita?&lt;/h5&gt;
 
