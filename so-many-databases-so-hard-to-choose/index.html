@@ -11,7 +11,7 @@
 
     <link rel="shortcut icon" href="../favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=ff7c6da698">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=6ce7426bc3">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
 
     <link rel="canonical" href="index.html">
@@ -19,14 +19,14 @@
     <meta property="og:site_name" content="Code Bouquet">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Deciding on a Database">
-    <meta property="og:description" content="On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk and our studies have informed us well, and after some short deliberation, we...">
+    <meta property="og:description" content="On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we...">
     <meta property="og:url" content="http://localhost:2368/so-many-databases-so-hard-to-choose/">
     <meta property="article:published_time" content="2015-05-05T17:45:51.261Z">
-    <meta property="article:modified_time" content="2015-05-05T17:46:22.601Z">
+    <meta property="article:modified_time" content="2015-05-11T06:35:03.867Z">
     
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Deciding on a Database">
-    <meta name="twitter:description" content="On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk and our studies have informed us well, and after some short deliberation, we...">
+    <meta name="twitter:description" content="On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we...">
     <meta name="twitter:url" content="http://localhost:2368/so-many-databases-so-hard-to-choose/">
     
     <script type="application/ld+json">
@@ -44,8 +44,8 @@
     "headline": "Deciding on a Database",
     "url": "http://localhost:2368/so-many-databases-so-hard-to-choose/",
     "datePublished": "2015-05-05T17:45:51.261Z",
-    "dateModified": "2015-05-05T17:46:22.601Z",
-    "description": "On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk and our studies have informed us well, and after some short deliberation, we..."
+    "dateModified": "2015-05-11T06:35:03.867Z",
+    "description": "On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we..."
 }
     </script>
 
@@ -90,15 +90,47 @@
         </header>
 
         <section class="post-content">
-            <p>On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk and our studies have informed us well, and after some short deliberation, we decided to use PostgreSQL. </p>
+            <p>On the heels of a great talk by the CTO of NPM - Laurie Voss, my thesis project team at Makersquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we decided to use PostgreSQL. </p>
 
-<p>Relational databases like PostgreSQL and MySQL (aka databases which use <a href="http://en.wikipedia.org/wiki/SQL">structured query language</a>) use binary code to store information. This allows for speedy lookup times, in addition to efficient queries that can compare different, variable datasets. There are some limitations: namely, the structure of your dataset is most easily architechted and pliable at its initiation/at the outset. Additionally, entries are space-limited by a pre-defined integer/character specification and count. </p>
+<h6 id="relationaldatabases">Relational Databases</h6>
 
-<p>An SQL database made most sense for our project because we wanted to be able to make comparative queries on the fly. Having a leaderboard that involved significant data queries/comparisons between users would have been difficult using a NoSQL object that consists of stored JSON objects, especially if we only wanted the top scorers, for instance. In an SQL set up, we can create quickly query the table that keeps track of the value of interest, rather than iterating through each user's JSON store in order to find the value of interest and compare going forward.</p>
+<p>Relational databases like PostgreSQL and MySQL (aka databases which use <a href="http://en.wikipedia.org/wiki/SQL">structured query language</a>) use binary code to store information. This allows for speedy lookup times, in addition to efficient queries that can compare different, variable datasets. There are some limitations: namely, the structure of your dataset is less maleable after it's created. Entries are space-limited by a pre-defined integer/character restriction-specification. </p>
 
-<p>Nonrelational databases/NoSQL like Firebase allow for a quick storing of data and quick lookup, only when not seeking to compare datasets / identify relationships between them. They store data in no particular order, but the manner by which data is structured (ie the parameters, etc.) may be iterated on as desired. Additionally, unlike relational databases, they are not restricted by a pre-defined integer/character specification and count.</p>
+<p>An SQL database made most sense for our project because we wanted to be able to make comparative queries on the fly. One of the features of our project allows users to create groups with other users, and to share particular information with particular groups, somewhat like circles in Google+. Rendering these groups and relevant information involves creating join tables between the users and group tables, as well as between the table containing users' information points and their relevant groups. While possible using another type of database, this would have proved costly in time and space requirements - especially so given large data sets.</p>
 
-<p>We considered other databases, all of which have their own unique set of advantages and disadvantages. </p>
+<h6 id="nonrelationaldatabases">Non-relational Databases</h6>
+
+<p>Alternative databases we considered include non-relational databases, like Firebase. These allow for the quick storing of data and quick lookup of information, but only when particular to one data store, like all of the information points on one user. JSON data stores used in these databases store data in no particular order, but the manner by which the data is structured (ie the parameters, the amount of data etc.) may be iterated on as desired. Unlike relational databases, they are not restricted by a pre-defined integer/character specification and count.</p>
+
+<p>Iterating through each user's JSON store in order to find them party to a particular group, or through a group's JSON store in order to find users, is time consuming. This would have been the case with users' information points and their relevant groups, as well.</p>
+
+<p>Iterating through each user's JSON store in order to find them party to a particular group, or through a hypothetical group's JSON store in order to find users, is time consuming. This would have been the case with users' information points and their relevant groups, as well.</p>
+
+<h6 id="morefantasticoptions">More Fantastic Options</h6>
+
+<p>We considered other databases, all of which have their own unique set of advantages and disadvantages - each of which worthy of their own blog (post).</p>
+
+<p>A few takeaways from Lorries talk that helped me consider these databases include:</p>
+
+<ul>
+<li>Memcache: Good for ephemeral data (though cache can always be pulled out again). 
+Redis: Stores to disk constantly vs at every x interval. Great for a persistent, comprehensive back up system.  </li>
+<li>MongoDB: Great for prototypes. Like other non-relational databases: sort of schemaless, hard to scale.</li>
+<li>CouchDB: Great for replication..</li>
+<li>LevelDB: Great for storing key : value pairs, easy to install. </li>
+<li>MySQL: Defacto leader of relational databases. </li>
+<li>Oracle: More $, fewer problems. </li>
+<li>Cassandra: Great for: high write and low read, like ad network stats.</li>
+<li>Riak: Cassandra competitor, easily scaled. Can trade off read/write speed, partition tolerance. </li>
+<li>Neo4J: Application specific database, great for graphs. </li>
+<li>The File System: Durable! Good replication, has been super slow, but now we have SSDs. </li>
+<li>HDFS/HBase - hadoop: Big data, woo!</li>
+<li>S3: Durable, scaleable, possibly pricey? </li>
+</ul>
+
+<p>Wondering why we can't just have it all? <a href="http://en.wikipedia.org/wiki/CAP_theorem">Start here.</a> If you think you've got a workaround that might allow you to design the ultimate database, by all means, please get in touch! </p>
+
+<p>Sean</p>
         </section>
 
         <footer class="post-footer">
@@ -146,9 +178,9 @@
 
     </div>
 
-    <script src="../public/jquery.js?v=ff7c6da698"></script>
+    <script src="../public/jquery.js?v=6ce7426bc3"></script>
 
-    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=ff7c6da698"></script>
-    <script type="text/javascript" src="../assets/js/index.js?v=ff7c6da698"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=6ce7426bc3"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=6ce7426bc3"></script>
 
 </body>
