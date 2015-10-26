@@ -1,0 +1,184 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Deciding on a Database</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=c12c010827">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="index.html">
+    
+    <meta property="og:site_name" content="Code Bouquet">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Deciding on a Database">
+    <meta property="og:description" content="On the heels of a great talk by Laurie Voss - the CTO of NPM, my thesis project team at MakerSquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we...">
+    <meta property="og:url" content="http://localhost:2368/so-many-databases-so-hard-to-choose/">
+    <meta property="article:published_time" content="2015-05-05T17:45:51.261Z">
+    <meta property="article:modified_time" content="2015-06-01T23:18:45.252Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Deciding on a Database">
+    <meta name="twitter:description" content="On the heels of a great talk by Laurie Voss - the CTO of NPM, my thesis project team at MakerSquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we...">
+    <meta name="twitter:url" content="http://localhost:2368/so-many-databases-so-hard-to-choose/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Code Bouquet",
+    "author": {
+        "@type": "Person",
+        "name": "Sean Conroy",
+        "image": "http://localhost:2368/content/images/2015/10/Sean-Conroy.jpg",
+        "url": "http://localhost:2368/author/sean",
+        "sameAs": null
+    },
+    "headline": "Deciding on a Database",
+    "url": "http://localhost:2368/so-many-databases-so-hard-to-choose/",
+    "datePublished": "2015-05-05T17:45:51.261Z",
+    "dateModified": "2015-06-01T23:18:45.252Z",
+    "description": "On the heels of a great talk by Laurie Voss - the CTO of NPM, my thesis project team at MakerSquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Code Bouquet" href="../rss/index.html">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="../">Home</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="../rss/index.rss">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button" href="index.html#"><span class="burger">☰</span><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Deciding on a Database</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-05-05">05 May 2015</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>On the heels of a great talk by Laurie Voss - the CTO of NPM, my thesis project team at MakerSquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we decided to use PostgreSQL. </p>
+
+<h6 id="relationaldatabases">Relational Databases</h6>
+
+<p>Relational databases like PostgreSQL and MySQL (aka databases which use <a href="http://en.wikipedia.org/wiki/SQL">structured query language</a>) use binary code to store information. This allows for speedy lookup times, in addition to efficient queries that can compare different, but relational datasets. There are some limitations: namely, the structure of your dataset is less maleable after it's created. Also, entries are space-limited by a pre-defined integer/character restriction-specification. </p>
+
+<p>An SQL database made most sense for our project because we wanted to be able to make comparative queries on the fly. One of the features of our project allows users to create groups with other users, and to share particular information with particular groups, somewhat like circles in Google+. Rendering these groups and relevant information involves creating join tables between the users and group tables, as well as between the table containing users' information points and their relevant groups. While possible using another type of database, this would have proved costly in time and space requirements - especially so given large data sets.</p>
+
+<h6 id="nonrelationaldatabases">Non-relational Databases</h6>
+
+<p>Alternative databases we considered included non-relational databases, like Firebase. These allow for the quick storing of data and a quick lookup of information, but only when particular to one data store, like all of the information points on one user. JSON data stores used in these databases store data in no particular order, but the manner by which the data is structured (ie the parameters, the amount of data etc.) may be iterated on as desired. Unlike relational databases, they are not restricted by a pre-defined integer/character specification and count.</p>
+
+<p>Iterating through each user's JSON store in order to find them party to a particular group, or through a group's JSON store in order to find users, is time consuming. This would have been the case with finding users' information points and their relevant groups in our project. Storing information in key : value pairs is a great, speedy way of storing data, however. It must also be said that setting up a database on Firebase is a breeze. </p>
+
+<h6 id="morefantasticoptions">More Fantastic Options</h6>
+
+<p>We considered other databases, all of which have their own unique set of advantages and disadvantages - each of which worthy of their own blog post.</p>
+
+<p>A few takeaways from Laurie's talk that helped me consider these databases include:</p>
+
+<ul>
+<li>Memcache: Good for ephemeral data (though cache can always be pulled out again). </li>
+<li>Redis: Stores to disk constantly vs at every x interval. Great for a persistent, comprehensive back up system.</li>
+<li>MongoDB: Great for prototypes. Like other non-relational databases: sort of schemaless, hard to scale.</li>
+<li>CouchDB: Great for replication..</li>
+<li>LevelDB: Great for storing key : value pairs, easy to install. </li>
+<li>MySQL: Defacto leader of relational databases. </li>
+<li>Oracle: More $, fewer problems. </li>
+<li>Cassandra: Great for: high write and low read, like ad network stats.</li>
+<li>Riak: Cassandra competitor, easily scaled. Can trade off read/write speed, partition tolerance. </li>
+<li>Neo4J: Application specific database, great for graphs. </li>
+<li>The File System: Durable! Good replication, has been super slow, but now we have SSDs. </li>
+<li>HDFS/HBase - hadoop: Big data.. woo!</li>
+<li>S3: Durable, scaleable, and possibly pricey? </li>
+</ul>
+
+<p>Wondering why we can't just have it all? <a href="http://en.wikipedia.org/wiki/CAP_theorem">Start here.</a> If you think you've got a workaround that might allow you to design the ultimate database that has it all, get in touch! </p>
+
+<p>Sean</p>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../author/sean/" style="background-image: url(../content/images/2015/10/Sean-Conroy.jpg)"><span class="hidden">Sean Conroy's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../author/sean/">Sean Conroy</a></h4>
+
+                    <p>Read <a href="../author/sean/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=Deciding%20on%20a%20Database&amp;url=http://localhost:2368/so-many-databases-so-hard-to-choose/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/so-many-databases-so-hard-to-choose/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/so-many-databases-so-hard-to-choose/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="../">Code Bouquet</a> © 2015</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script src="../public/jquery.js?v=c12c010827"></script>
+
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=c12c010827"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=c12c010827"></script>
+
+</body>
