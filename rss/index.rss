@@ -1,4 +1,56 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Bouquet</title><description>Code Bouquet</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Mon, 01 Jun 2015 23:32:53 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Deciding on a Database</title><description>&lt;p&gt;On the heels of a great talk by Laurie Voss - the CTO of NPM, my thesis project team at MakerSquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we decided to use PostgreSQL. &lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Code Bouquet</title><description>Code Bouquet</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Mon, 26 Oct 2015 21:25:49 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Recap: GitHub Universe</title><description>&lt;p&gt;With many thanks to my coding school alma mater, &lt;a href="http://localhost:2368/recap-github-universe/www.makersquare.com"&gt;MakerSquare&lt;/a&gt;, I was very fortunate to win a couple of tickets to the &lt;a href="http://githubuniverse.com/"&gt;GitHub Universe&lt;/a&gt; conference earlier this month. The hours that I spent there were productive and insightful. Here are some of the highlights: &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2015/10/caff-hyd.png" alt=""&gt;
+GitHub covered all the bases with “caffeinate” and “hydration” stations. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Keynote Speaker: Kellan Elliott-McCrea (Former CTO, Etsy)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Kellan delivered a great keynote that centered on fomenting the culture necessary for a successful engineering team. &lt;/p&gt;
+
+&lt;p&gt;Constant learning, he said, must not only be promoted, but also a sustained practice. This involves a certain degree of reflection and focus on environmental variables, like the build process. For instance, it’s important to ask what about a build environment can be changed, and what should be changed? This type of investment in building a more stable and stronger environment, either through coded solutions or through teaching (with tools, documentation, training, etc.) increases a team’s confidence to take risks. He also spoke about how minimizing harbingers to learning is just as—if not more—important as promoting learning. Harbingers include things like lacking the time to devote to learning, path dependency, poor tooling, and lack of confidence, among others.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2015/10/kellan.png" alt=""&gt;
+Kellan Elliott-McCrea on why we cannot afford to stop learning.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Talks on Continuous Integration&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There were several talks given on CI, along with demos of TravisCI. The low down: CI should not be an afterthought, as it could have a negative effect on a team’s moral. Instead, it should be integral, easy to use, and scalable. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2015/10/ci-in-build.png" alt=""&gt;
+CI in build systems is essential to go from yolo-freestyle deploys to concrete, confident deploys.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Every Company is Software Company&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It was inspiring to hear from a panel of tech decision makers and influencers at top companies like GE, Ford, and Target, about how they are turning farmers, consumers, you, and me into techies and end-users. Who knew, for instance, that John Deere had over 100 mobile apps in production? They spoke about differences in management style across industries, how to bridge divergent styles, and the importance of building common tools across cultures, languages, and backgrounds for those who may have never used common tools before. Anecdotes were provided from stories of UI/UX and boardroom discussions. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2015/10/badge-waffle.png" alt=""&gt;
+Afternoon waffles sponsored by waffle.io. Really, ALL the bases were belonged to GitHub at this conf.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Changing Lives with Open Data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Hidenori Fujimura with the Geospatial Information Authority of Japan talked about how new mapping technologies and robotics were used to assess damages after catastrophes, such as earthquakes and tsunamis. Abhi Nemani, from the Board of OpenGov, spoke to how government resources could be optimized when both data reporting and analysis were more accessible, giving anecdotes and live demos of technologies in production from his time as the Chief Data Officer for the City of Los Angeles. Danny Whelan demoed Remix,a platform used by municipal transportation agencies to plan routes and other logistics. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Desktop Apps with Web Technologies using Electron&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2015/10/jessica-lord.png" alt=""&gt;
+Jessica Lord presented and demoed the Electron framework.&lt;/p&gt;
+
+&lt;p&gt;More and more quality apps are now being built using technologies that were once considered “reserved” for the web, like JavaScript, HTML, and CSS (ex: Spotify). Electron, created by GitHub, leverages these technologies along with Chromium—the Chrome engine—and Node.js. Under the hood, an electron app has two processes: main and render. The main process consists of the app’s lifecycle, from when the app is started until it is ended; modules allow you to interact with the system UI and allow for inner-process communication (ipc).  The renderer is responsible for areas like the DOM, web-frame, ipc with the main ipc, among others. There’s also chrome debugger support!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;JIBO&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A JIBO robot, from the company of the same name, was demoed and the audience at this talk was converted to a sea of JIBO-believers. Though not yet widely released, the JIBO has a JavaScript API that is available on npm. Included in the demo were a series of robotic animations that were programmed using their SDK and with Gaia—a game development tool. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Offline Web Apps&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Myk Melez with Mozilla covered how service workers support offline-ing by transparently intercepting all network requests that an application might make. A great use case for service workers would be for an app that performs periodic background sync. A couple of caveats to keep in mind when seeking to use this technology include browser support and a requirement that your website use HTTPS. Myk also demoed a tool that can enable offline capability for a GitHub Pages web app: &lt;a href="https://github.com/mozilla/oghliner"&gt;oghliner&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GitHub Tricks&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Check ‘em out: &lt;a href="https://github.com/tiimgreen/github-cheat-sheet"&gt;https://github.com/tiimgreen/github-cheat-sheet&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2015/10/david-tan.png" alt=""&gt;
+David Tan (MKS15) with a massive GitHub Universe backdrop.&lt;/p&gt;</description><link>http://localhost:2368/recap-github-universe/</link><guid isPermaLink="false">7b124e1a-3ed2-43a8-9a25-2898039d31ee</guid><dc:creator>Sean Conroy</dc:creator><pubDate>Mon, 26 Oct 2015 21:23:42 GMT</pubDate></item><item><title>Deciding on a Database</title><description>&lt;p&gt;On the heels of a great talk by Laurie Voss - the CTO of NPM, my thesis project team at MakerSquare needed a database. Thankfully, the talk, our experience, and studies had informed us well: after some short deliberation, we decided to use PostgreSQL. &lt;/p&gt;
 
 &lt;h6 id="relationaldatabases"&gt;Relational Databases&lt;/h6&gt;
 
